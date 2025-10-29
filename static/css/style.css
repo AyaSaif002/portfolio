@@ -53,4 +53,22 @@ margin-bottom: 40px;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 25px;
+    position: relative;
+    padding: 20;
+}
+.about-section button {
+    background-color: #bbb;
+    display: block;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 25px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.about-btn:hover {
+    background-color:#bbb;
 }
