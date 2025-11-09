@@ -1,0 +1,31 @@
+name: CI/CD with Docker Compose
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛠️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐳 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🔧 Build and start services
+        run: |
+          docker-compose up -d --build
+
+      - name: ✅ Run tests (optional)
+        run: |
+          # Adjust this command to match your app's test script
+          docker-compose exec -T web npm test || true
+
+      - name: 🧹 Stop and clean up
+        run: |
+          docker-compose down
