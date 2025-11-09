@@ -23,8 +23,8 @@ jobs:
           chmod +x /usr/local/bin/docker-compose
 
       - name: 🔨 Build and start services
-        run: |
-          docker-compose up -d --build
+        run: docker-compose -f portfolio/docker-compose.yml up -d --build
+
 
       - name: ✅ Run tests (optional)
         run: |
