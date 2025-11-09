@@ -14,6 +14,9 @@ jobs:
       - name: 🛠️ Checkout code
         uses: actions/checkout@v4
 
+      - name: 🧰 List files in the portfolio folder (for debugging)
+        run: ls -al portfolio
+
       - name: 🔧 Set up Docker
         uses: docker/setup-buildx-action@v3
 
@@ -25,26 +28,12 @@ jobs:
       - name: 🔨 Build and start services
         run: docker-compose -f portfolio/docker-compose.yml up -d --build
 
-
       - name: ✅ Run tests (optional)
         run: |
-          # Adjust this command to match your app's test script
-          docker-compose exec -T web npm test || true
+          docker-compose -f portfolio/docker-compose.yml exec -T web npm test || true
 
       - name: 🧹 Stop and clean up
         run: |
-          docker-compose down
+          docker-compose -f portfolio/docker-compose.yml down
 
-
-      - name: 🔧 Build and start services
-        run: |
-          docker-compose up -d --build
-
-      - name: ✅ Run tests (optional)
-        run: |
-          # Adjust this command to match your app's test script
-          docker-compose exec -T web npm test || true
-
-      - name: 🧹 Stop and clean up
-        run: |
           docker-compose down
