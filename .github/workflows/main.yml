@@ -14,8 +14,27 @@ jobs:
       - name: 🛠️ Checkout code
         uses: actions/checkout@v4
 
-      - name: 🐳 Set up Docker Buildx
+      - name: 🔧 Set up Docker
         uses: docker/setup-buildx-action@v3
+
+      - name: 🐳 Install Docker Compose
+        run: |
+          curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+
+      - name: 🔨 Build and start services
+        run: |
+          docker-compose up -d --build
+
+      - name: ✅ Run tests (optional)
+        run: |
+          # Adjust this command to match your app's test script
+          docker-compose exec -T web npm test || true
+
+      - name: 🧹 Stop and clean up
+        run: |
+          docker-compose down
+
 
       - name: 🔧 Build and start services
         run: |
