@@ -28,15 +28,6 @@ jobs:
           push: false  # set true if you want to push to DockerHub
           platforms: linux/amd64,linux/arm64
 
-      # Step 6: Run Docker Compose up
-      - name: 🔨 Start services with Docker Compose
-        uses: docker/compose-action@v2
-        with:
-          project-name: portfolio
-          files: ./portfolio/docker-compose.yml
-          detached: true
-          build: true
-    
       # Step 7: Stop and clean up Docker services
       - name: 🧹 Stop and clean up
         run: |
