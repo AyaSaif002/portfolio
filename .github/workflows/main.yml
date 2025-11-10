@@ -28,10 +28,6 @@ jobs:
           push: false  # set true if you want to push to DockerHub
           platforms: linux/amd64,linux/arm64
 
-      # Step 7: Stop and clean up Docker services
-      - name: 🧹 Stop and clean up
-        run: |
-          docker-compose -f portfolio/docker-compose.yml down
 
   deploy:
     runs-on: ubuntu-latest
