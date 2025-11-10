@@ -34,7 +34,7 @@ jobs:
         with:
           project-name: portfolio
           files: ./portfolio/docker-compose.yml
-          #detached: true
+          detached: true
           build: true
     
       # Step 7: Stop and clean up Docker services
