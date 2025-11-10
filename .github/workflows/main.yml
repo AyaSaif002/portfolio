@@ -19,7 +19,7 @@ jobs:
       - name: 🧰 List directory structure for debugging
         run: |
           echo "Listing the directory structure of the repository:"
-          ls -R /home/runner/work/portfolio/portfolio/
+          ls -R /home/portfolio
 
       # Step 3: Set up Docker Buildx
       - name: 🔧 Set up Docker
@@ -35,17 +35,17 @@ jobs:
       - name: 🔨 Build and start services
         run: |
           # Correct path if the docker-compose.yml is inside 'portfolio/portfolio/'
-          docker-compose -f portfolio/portfolio/docker-compose.yml up -d --build
+          docker-compose -f portfolio/docker-compose.yml up -d --build
 
       # Step 6: Run tests (optional)
       - name: ✅ Run tests (optional)
         run: |
-          docker-compose -f portfolio/portfolio/docker-compose.yml exec -T web npm test || true
+          docker-compose -f portfolio/docker-compose.yml exec -T web npm test || true
 
       # Step 7: Stop and clean up Docker services
       - name: 🧹 Stop and clean up
         run: |
-          docker-compose -f portfolio/portfolio/docker-compose.yml down
+          docker-compose -f portfolio/docker-compose.yml down
 
   deploy:
     runs-on: ubuntu-latest
@@ -73,8 +73,8 @@ jobs:
           port: 22
           script: |
             cd /path/to/your/project
-            docker-compose -f portfolio/portfolio/docker-compose.yml down  # Stop old containers (if any)
-            docker-compose -f portfolio/portfolio/docker-compose.yml up -d --build  # Build and start new containers
+            docker-compose -f portfolio/docker-compose.yml down  # Stop old containers (if any)
+            docker-compose -f portfolio/docker-compose.yml up -d --build  # Build and start new containers
 
       # Optional: Post-deployment steps (e.g., notify, or health check)
       - name: ✅ Health Check (Optional)
