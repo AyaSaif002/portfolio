@@ -15,17 +15,11 @@ jobs:
       - name: 🛠️ Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Verify the directory structure for debugging (check if 'portfolio' exists)
-      - name: 🧰 List files for debugging (check 'portfolio')
+      # Step 2: Print the full directory structure for debugging
+      - name: 🧰 List directory structure for debugging
         run: |
-          echo "Listing the directory where the repository is cloned:"
-          ls -al
-          echo "Listing 'portfolio' directory:"
-          if [ -d "portfolio" ]; then
-            ls -al portfolio
-          else
-            echo "'portfolio' directory not found!"
-          fi
+          echo "Listing the full directory structure:"
+          ls -R /home/runner/work/portfolio/portfolio/  # Adjust path if necessary
 
       # Step 3: Set up Docker Buildx
       - name: 🔧 Set up Docker
@@ -40,7 +34,6 @@ jobs:
       # Step 5: Build and start Docker services using docker-compose.yml
       - name: 🔨 Build and start services
         run: |
-          # Ensure 'portfolio/docker-compose.yml' is the correct path
           docker-compose -f portfolio/docker-compose.yml up -d --build
 
       # Step 6: Run tests (optional)
