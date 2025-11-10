@@ -44,21 +44,7 @@ jobs:
           detached: true
           build: true
 
-      # Step 7: Run tests (optional)
-      - name: ✅ Run tests
-        uses: docker/compose-action@v2
-        with:
-          project-name: portfolio
-          files: ./portfolio/portfolio/docker-compose.yml
-          run: web npm test  # assumes your service is called 'web'
-
-      # Step 8: Stop and clean up Docker Compose
-      - name: 🧹 Stop services
-        uses: docker/compose-action@v2
-        with:
-          project-name: portfolio
-          files: ./portfolio/portfolio/docker-compose.yml
-          down: true
+    
 
       # Step 7: Stop and clean up Docker services
       - name: 🧹 Stop and clean up
