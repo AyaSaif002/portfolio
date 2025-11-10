@@ -50,7 +50,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.HEBAIP }} 
-          username: "cybersecurity" 
+          username: "deploy" 
           key: ${{ secrets.SADEELKEY }}
           port: 22
           script: |
