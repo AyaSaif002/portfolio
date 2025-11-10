@@ -49,9 +49,9 @@ jobs:
       - name: 🚀 Deploy to Production (SSH to server)
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.PROD_SERVER_HOST }}
-          username: ${{ secrets.PROD_SERVER_USER }}
-          key: ${{ secrets.PROD_SERVER_SSH_KEY }}
+          host: 10.20.40.17 
+          username: "cybersecurity" 
+          key: ${{ secrets.SADEELKEY }}
           port: 22
           script: |
             cd /path/to/your/project
