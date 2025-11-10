@@ -15,9 +15,6 @@ jobs:
       - name: 🛠️ Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Print the full directory structure for debugging
-      - name: 🧰 List directory structure for debugging
-        run: |
          
       # Step 3: Set up Docker Buildx
       - name: 🔧 Set up Docker
