@@ -18,8 +18,8 @@ jobs:
       # Step 2: Print the full directory structure for debugging
       - name: 🧰 List directory structure for debugging
         run: |
-          echo "Listing the full directory structure:"
-          ls -R /home/runner/work/portfolio/portfolio/  # Adjust path if necessary
+          echo "Listing the directory structure of the repository:"
+          ls -R /home/runner/work/portfolio/portfolio/
 
       # Step 3: Set up Docker Buildx
       - name: 🔧 Set up Docker
@@ -34,6 +34,7 @@ jobs:
       # Step 5: Build and start Docker services using docker-compose.yml
       - name: 🔨 Build and start services
         run: |
+          # Ensure 'portfolio/docker-compose.yml' is the correct path
           docker-compose -f portfolio/docker-compose.yml up -d --build
 
       # Step 6: Run tests (optional)
