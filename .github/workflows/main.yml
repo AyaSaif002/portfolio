@@ -24,7 +24,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: . # path to folder containing docker-compose.yml
-          file: .  # if you have a Dockerfile
+          file: dockerfile  # if you have a Dockerfile
           push: false  # set true if you want to push to DockerHub
           platforms: linux/amd64,linux/arm64
 
