@@ -21,21 +21,44 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       # Step 4: Install Docker Compose
-      - name: 🐳 Install Docker Compose
-        run: |
-          curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          chmod +x /usr/local/bin/docker-compose
+     # - name: 🐳 Install Docker Compose
+      #  run: |
+       #   curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        #  chmod +x /usr/local/bin/docker-compose
 
-      # Step 5: Build and start Docker services using docker-compose.yml
-      - name: 🔨 Build and start services
-        run: |
-          # Correct path if the docker-compose.yml is inside 'portfolio/portfolio/'
-          docker-compose -f portfolio/docker-compose.yml up -d --build
+      # Step 5: Build and push Docker image using docker-compose
+      - name: 🐳 Build Docker Compose services
+        uses: docker/build-push-action@v4
+        with:
+          context: ./portfolio/portfolio  # path to folder containing docker-compose.yml
+          file: ./portfolio/portfolio/Dockerfile  # if you have a Dockerfile
+          push: false  # set true if you want to push to DockerHub
+          platforms: linux/amd64,linux/arm64
 
-      # Step 6: Run tests (optional)
-      - name: ✅ Run tests (optional)
-        run: |
-          docker-compose -f portfolio/docker-compose.yml exec -T web npm test || true
+      # Step 6: Run Docker Compose up
+      - name: 🔨 Start services with Docker Compose
+        uses: docker/compose-action@v2
+        with:
+          project-name: portfolio
+          files: ./portfolio/portfolio/docker-compose.yml
+          detached: true
+          build: true
+
+      # Step 7: Run tests (optional)
+      - name: ✅ Run tests
+        uses: docker/compose-action@v2
+        with:
+          project-name: portfolio
+          files: ./portfolio/portfolio/docker-compose.yml
+          run: web npm test  # assumes your service is called 'web'
+
+      # Step 8: Stop and clean up Docker Compose
+      - name: 🧹 Stop services
+        uses: docker/compose-action@v2
+        with:
+          project-name: portfolio
+          files: ./portfolio/portfolio/docker-compose.yml
+          down: true
 
       # Step 7: Stop and clean up Docker services
       - name: 🧹 Stop and clean up
