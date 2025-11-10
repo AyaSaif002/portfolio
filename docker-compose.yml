@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"  # Expose port 3000 to the host
+    volumes:
+      - .:/app  # Mount the current directory inside the container
+    environment:
+      - NODE_ENV=development  # Set any necessary environment variables
+
+  # Optional: If you have a database or other services, add them here
+  # db:
+  #   image: mysql:5.7
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: example
